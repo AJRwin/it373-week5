@@ -1,0 +1,49 @@
+[
+    {
+        "model": "pages.post", 
+        "pk": 3, 
+        "fields": {
+            "title": "Third Post", 
+            "body": "This is my first post.",
+            "created_at": "2025-01-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "pages.post", 
+        "pk": 4, 
+        "fields": {
+            "title": "Fourth Post", 
+            "body": "This is my first post.",
+            "created_at": "2025-01-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "pages.post", 
+        "pk": 5, 
+        "fields": {
+            "title": "Fifth Post", 
+            "body": "This is my first post.",
+            "created_at": "2025-01-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "pages.comment", 
+        "pk": 2, 
+        "fields": {
+            "post": 5,
+            "author": "Peter", 
+            "text": "This is my comment on post 5.    ",
+            "created_at": "2025-01-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "pages.comment", 
+        "pk": 3, 
+        "fields": {
+            "post": 3,
+            "author": "Maria", 
+            "text": "Post 3 comment.",
+            "created_at": "2025-01-01T00:00:00Z"
+        }
+    }
+]
