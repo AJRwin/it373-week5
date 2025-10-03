@@ -9,6 +9,7 @@ class CommentInline(admin.StackedInline):
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
     list_display=("title", "body", "created_at")
+    inline = [CommentInline]
     search_fields=("title", "body")
     list_filter=("created_at",)
     ordering=("-created_at",)

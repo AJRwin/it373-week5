@@ -10,7 +10,7 @@ class Post(models.Model):
     class Meta:
         ordering = ['-created_at']
         constraints = [
-            models.UniqueConstraint(fields=['title'],name=['unique_post_title'])
+            models.UniqueConstraint(fields=['title'],name='unique_post_title')
         ]
     
     def __str__(self):

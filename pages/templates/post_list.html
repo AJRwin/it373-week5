@@ -2,6 +2,13 @@
 {% block title %}{{ title }}{% endblock %}
 {% block content %}
  <h1>Posts ({{ posts.count }})</h1>
+   {% if messages %}
+      <ul>
+         {% for message in messages %}
+            <li>{{ message }}</li>
+         {% endfor%}
+      </ul>
+   {% endif %}
  <ul>
    {% for post in posts %}
       <li>
