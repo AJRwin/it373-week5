@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseBadRequest
 from django.contrib import messages
-from pages.forms import PostForm
-from pages.models import Post
+from pages.forms import PostForm, CommentForm
+from pages.models import Post               
+from pages.models import Comment
 
 # Create your views here.
 def home(request):
@@ -57,9 +58,32 @@ def post_create(request):
     return render(request, 'post_form.html', {'form': form})
 
 def post_view(request, pk):
-    # post = get_object_or_404(Post, pk=pk)
-    post = Post.objects.get(pk=pk)
-    return render(request, 'post_view.html', {'post': post})
+    post = get_object_or_404(Post, pk=pk)
+    comments = post.comments.all().order_by('-created_at')  # get all related comments
+
+    if request.method == 'POST':
+        comment_form = CommentForm(request.POST)
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.post = post
+            comment.save()
+            messages.success(request, 'Your comment has been added!')
+            return redirect('post_view', pk=post.pk)
+        else:
+            messages.error(request, 'Please correct the errors below.')
+    else:
+        comment_form = CommentForm()
+
+    return render(request, 'post_view.html', {
+        'post': post,
+        'comments': comments,
+        'comment_form': comment_form
+    })
+
+# def post_view(request, pk):
+#     # post = get_object_or_404(Post, pk=pk)
+#     post = Post.objects.get(pk=pk)
+#     return render(request, 'post_view.html', {'post': post})
 
 def post_update(request, pk):
     post = get_object_or_404(Post, pk=pk)
@@ -88,3 +112,6 @@ def post_delete(request, pk):
         messages.success(request, f'Post `{post.title}` was deleted')
         return redirect('post_list')
     return render(request, 'post_confirm_delete.html', {'post': post})
+
+def csrf_failure(request, reason=""):
+    return render(request, '403_csrf.html', {'reason': reason}, status=403)

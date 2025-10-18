@@ -49,4 +49,4 @@ class Enrollment(models.Model):
         unique_together = ('student', 'course')
     
     def __str__(self):
-        return f"{self.student.first_name} {self.student.first_name} - {self.course.code}"
+        return f"{self.student.first_name} {self.student.last_name} - {self.course.code}"

@@ -10,13 +10,22 @@
  
  <p>{{ post.body }}</p>
  
-   <h4>Comments ({{ post.comments.count }})</h4>
+   <h4>Comments ({{ comments.count }})</h4>
    <ul>
-      {% for comment in post.comments.all %}
+      {% for comment in comments %}
          <li><strong>{{ comment.author }}:</strong> {{ comment.text }} | {{ comment.created_at|timesince}} ago.</li>
       {% empty %}
          <li>No comment yet.</li>
       {% endfor %}
-   </ul>  
+   </ul>
+
+   <!-- Add Comment Form -->
+   <h4>Add a Comment</h4>
+   <form method="post">
+      {% csrf_token %}
+      {{ comment_form.as_p }}
+      <button type="submit" class="btn btn-primary">Submit Comment</button>
+   </form>
  
 {% endblock %}
+
